@@ -27,7 +27,7 @@ FRONTEND_DIR = BASE_DIR  # HTML files are in the same folder
 # USERS
 # =====================
 USERS = {
-    "admin": "admin123"
+    "proseandpartners@gmail.com": "admin123"
 }
 
 # =====================

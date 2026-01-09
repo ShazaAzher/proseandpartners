@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prose and Partners Application</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f9fafb;
+      color: #4b5563;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .header-box {
+      padding: 10px 20px;
+      border-radius: 20px;
+      background: #f3f4f6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .header-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #111827;
+      margin-bottom: 24px;
+    }
+
+    /* Application buttons */
+    .app-buttons {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+
+    .app-buttons button {
+      padding: 16px 40px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #111827;
+      color: white;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .app-buttons button:hover {
+      background: #374151;
+      transform: translateY(-2px);
+    }
+
+    .app-buttons button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 12px;
+      color: #6b7280;
+      background: #f3f4f6;
+    }
+
+    footer img {
+      height: 40px;
+      margin-bottom: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .app-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/static/logo.png" alt="Logo" class="logo">
+    <div class="header-box">
+      <span class="header-title">Prose and Partners - Skin Enhancer</span>
+    </div>
+  </header>
+
+  <main>
+    <h2>Applications</h2>
+    <div class="app-buttons">
+      <button onclick="openSkin()">Skin Enhancer</button>
+      <button onclick="openImage()">Image Generator</button>
+    </div>
+  </main>
+
+  <footer>
+    <img src="/static/footer_logo.png" alt="Footer Logo">
+    <div>
+      This front end is proprietary intellectual property belonging to Prose & Partners. Unauthorized reproduction, distribution, or disclosure is strictly prohibited. Prose & Partners operates under Prosewood Bureau Ltd., registered in Ireland.
+    </div>
+  </footer>
+
+  <script>
+    const token = sessionStorage.getItem("token");
+    if (!token) window.location.href = "/";
+
+    function openSkin() {
+      window.location.href = "https://comfyui-fastapi-git-main-shazaazhers-projects.vercel.app?token=" + token;
+    }
+
+    function openImage() {
+      window.location.href = "https://image-n1ssgdzih-shazaazhers-projects.vercel.app?token=" + token;
+    }
+  </script>
+</body>
+</html>

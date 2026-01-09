@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prose and Partners - Login</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f9fafb;
+      color: #4b5563;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-card img {
+      height: 60px;
+      margin-bottom: 24px;
+    }
+
+    .login-card h2 {
+      margin-bottom: 24px;
+      color: #111827;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .login-card input:focus {
+      border-color: #111827;
+      box-shadow: 0 0 0 2px rgba(17,24,39,0.1);
+    }
+
+    .login-card button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      background: #111827;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .login-card button:hover {
+      background: #374151;
+      transform: translateY(-2px);
+    }
+
+    .login-card button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .error {
+      color: #ef4444;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 16px;
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <img src="/static/logo.png" alt="Prose and Partners Logo">
+    <h2>Login</h2>
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
+    <button onclick="login()">Login</button>
+    <div id="error" class="error"></div>
+  </div>
+
+  <footer>
+    © Prose & Partners. All rights reserved.
+  </footer>
+
+  <script>
+    async function login() {
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const errorDiv = document.getElementById("error");
+
+      errorDiv.innerText = ""; // clear previous error
+
+      if (!usernameInput.value || !passwordInput.value) {
+        errorDiv.innerText = "Please enter username and password.";
+        return;
+      }
+
+      try {
+        const res = await fetch("/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: usernameInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        if (!res.ok) {
+          errorDiv.innerText = "Invalid credentials";
+          return;
+        }
+
+        const data = await res.json();
+        sessionStorage.setItem("token", data.token);
+        window.location.href = "/menu";
+      } catch (err) {
+        console.error(err);
+        errorDiv.innerText = "Server error. Try again later.";
+      }
+    }
+  </script>
+</body>
+</html>
